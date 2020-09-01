@@ -12,6 +12,8 @@ en:
         name: name
         state: state
         created_at: created at
+        lat: Latitude
+        lng: Longitude
         priority: priority
   spree:
     back_to_vendors_list: Back To Vendors List

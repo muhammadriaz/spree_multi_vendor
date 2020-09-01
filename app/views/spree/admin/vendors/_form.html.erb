@@ -25,6 +25,13 @@
       <%= image_tag main_app.url_for(@vendor.image.url(:small)) if @vendor.image %>
     <% end %>
   <% end %>
+  <% if Spree.version.to_f >= 3.6 %>
+    <%= f.field_container :bg_image do %>
+      <%= f.label :bg_image %>
+      <%= f.file_field :bg_image %>
+      <%= image_tag main_app.url_for(@vendor.bg_image.url(:small)) if @vendor.bg_image %>
+    <% end %>
+  <% end %>
   <%= f.field_container :commission_rate do %>
     <%= f.label :commission_rate %>
     <%= f.number_field :commission_rate, step: '0.01', class: 'form-control' %>
@@ -32,5 +39,17 @@
   <%= f.field_container :notification_email do%>
     <%= f.label :notification_email %>
     <%= f.email_field :notification_email, class: 'form-control' %>
+  <% end %>
+  <%= f.field_container :delivery_radius do%>
+    <%= f.label :delivery_radius %>
+    <%= f.number_field :delivery_radius, :step => "any", class: 'form-control' %>
+  <% end %>
+  <%= f.field_container :lat do%>
+    <%= f.label :lat %>
+    <%= f.number_field :lat, :step => "any", class: 'form-control' %>
+  <% end %>
+  <%= f.field_container :lng do%>
+    <%= f.label :lng %>
+    <%= f.number_field :lng, :step => "any", class: 'form-control' %>
   <% end %>
 </div>

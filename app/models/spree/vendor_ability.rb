@@ -25,6 +25,7 @@ class Spree::VendorAbility
       apply_vendor_settings_permissions
       apply_state_changes_permissions
     end
+    can :read, Spree::Vendor
   end
 
   private

@@ -12,6 +12,8 @@ fr:
         name: Nom
         state: Status
         created_at: créé le
+        lat: Latitude
+        lng: Longitude
         priority: priorité
   spree:
     back_to_vendors_list: Retour à la liste des vendeurs

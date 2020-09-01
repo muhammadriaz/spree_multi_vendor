@@ -6,6 +6,11 @@ module Spree
         if permitted_resource_params[:image] && Spree.version.to_f >= 3.6
           @vendor.build_image(attachment: permitted_resource_params.delete(:image))
         end
+
+        if permitted_resource_params[:bg_image] && Spree.version.to_f >= 3.6
+          @vendor.build_bg_image(attachment: permitted_resource_params.delete(:bg_image))
+        end
+
         super
       end
 
@@ -13,6 +18,11 @@ module Spree
         if permitted_resource_params[:image] && Spree.version.to_f >= 3.6
           @vendor.create_image(attachment: permitted_resource_params.delete(:image))
         end
+
+        if permitted_resource_params[:bg_image] && Spree.version.to_f >= 3.6
+          @vendor.create_bg_image(attachment: permitted_resource_params.delete(:bg_image))
+        end
+
         super
       end
 

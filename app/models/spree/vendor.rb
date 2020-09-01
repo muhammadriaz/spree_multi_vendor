@@ -1,6 +1,11 @@
 module Spree
   class Vendor < Spree::Base
     extend FriendlyId
+    searchkick locations: [:location]
+
+    def search_data
+      attributes.merge(location: {lat: lat, lon: lng})
+    end
 
     acts_as_paranoid
     acts_as_list column: :priority
@@ -13,14 +18,19 @@ module Spree
     validates :slug, uniqueness: true
     if Spree.version.to_f >= 3.6
       validates_associated :image
+      validates_associated :bg_image
     end
 
     validates :notification_email, email: true, allow_blank: true
 
+    delegate :name, to: :product, prefix: true
+
     with_options dependent: :destroy do
       if Spree.version.to_f >= 3.6
         has_one :image, as: :viewable, dependent: :destroy, class_name: 'Spree::VendorImage'
+        has_one :bg_image, as: :viewable, dependent: :destroy, class_name: 'Spree::VendorBackgroundImage'
       end
+
       has_many :commissions, class_name: 'Spree::OrderCommission'
       has_many :option_types
       has_many :products
