@@ -79,8 +79,8 @@ module Spree::ProductDecorator
   end
 end
 
-Spree::Product.class_eval do
-  searchkick word_start: [:name], settings: { number_of_replicas: 0 } unless respond_to?(:searchkick_index)
-end
+# Spree::Product.class_eval do
+#   # searchkick word_start: [:name], settings: { number_of_replicas: 0 } unless respond_to?(:searchkick_index)
+# end
 
 Spree::Product.prepend Spree::ProductDecorator

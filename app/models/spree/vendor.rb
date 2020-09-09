@@ -1,7 +1,7 @@
 module Spree
   class Vendor < Spree::Base
     extend FriendlyId
-    searchkick locations: [:location]
+    # searchkick locations: [:location]
 
     def search_data
       attributes.merge(location: {lat: lat, lon: lng})
