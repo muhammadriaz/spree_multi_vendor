@@ -3,6 +3,7 @@ module Spree
     class VendorsController < ResourceController
 
       def create
+        setGeoCoordinates
         if permitted_resource_params[:image] && Spree.version.to_f >= 3.6
           @vendor.build_image(attachment: permitted_resource_params.delete(:image))
         end
@@ -15,6 +16,8 @@ module Spree
       end
 
       def update
+        setGeoCoordinates
+
         if permitted_resource_params[:image] && Spree.version.to_f >= 3.6
           @vendor.create_image(attachment: permitted_resource_params.delete(:image))
         end
@@ -38,6 +41,10 @@ module Spree
       end
 
       private
+
+      def setGeoCoordinates
+        params[:vendor][:geo_coordinates] = "POINT(#{params[:vendor][:lng]} #{params[:vendor][:lat]})"
+      end
 
       def find_resource
         Vendor.with_deleted.friendly.find(params[:id])

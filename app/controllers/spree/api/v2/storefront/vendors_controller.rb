@@ -23,7 +23,6 @@ module Spree
                     AND spt.name = 'Departments'
                     group by taxon_id;
               ")
-               #byebug
 
               results = []
 
