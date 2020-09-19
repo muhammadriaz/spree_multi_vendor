@@ -8,13 +8,13 @@ module Spree
         @name = params[:name]
         @lat = params.dig(:filter, :lat)
         @lon = params.dig(:filter, :lng)
-        @where = Hash.new
       end
 
       def execute
-        where = by_ids(@where)
+        where = by_ids(scope)
         where = by_name(where)
         where = by_location(where)
+
         where
       end
 
@@ -54,8 +54,8 @@ module Spree
       def by_location(where)
         return where unless location?
 
-         where[:location] = {near: {lat: lat.to_f, lon: lon.to_f}, within: "100mi"}
-         where
+          where.within lat.to_f, lon.to_f, 2
+          where
       end
 
     end

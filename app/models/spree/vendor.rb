@@ -3,9 +3,9 @@ module Spree
     extend FriendlyId
     # searchkick locations: [:location]
 
-    def search_data
-      attributes.merge(location: {lat: lat, lon: lng})
-    end
+    #def search_data
+    #  attributes.merge(location: {lat: lat, lon: lng})
+    #end
 
     acts_as_paranoid
     acts_as_list column: :priority
@@ -57,6 +57,12 @@ module Spree
     end
 
     scope :active, -> { where(state: 'active') }
+
+    scope :within, -> (latitude, longitude, distance_in_km = 1) {
+      where(%{
+       ST_Distance(geo_coordinates, 'POINT(%f %f)') < %d
+      } % [longitude, latitude, distance_in_km * 1000]) # approx
+    }
 
     self.whitelisted_ransackable_attributes = %w[name state]
 

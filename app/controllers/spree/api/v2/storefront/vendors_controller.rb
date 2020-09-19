@@ -45,13 +45,17 @@ module Spree
 
           private
 
+          # def paginated_collection
+          #   # collection_paginator.new(collection, params).call
+          #   query = scope.search('*', where: collection, execute: false)
+          #   query.execute
+          #   # query.where_filters(_id: 1)
+          #   # query.execute
+          #   # collection_paginator.new(scope.search('*'), params).call
+          # end
+
           def paginated_collection
-            # collection_paginator.new(collection, params).call
-            query = scope.search('*', where: collection, execute: false)
-            query.execute
-            # query.where_filters(_id: 1)
-            # query.execute
-            # collection_paginator.new(scope.search('*'), params).call
+            collection_paginator.new(collection, params).call
           end
 
           def collection
@@ -59,7 +63,7 @@ module Spree
           end
 
           def resource
-            scope.search "*", where: {_id: params[:id]}, load: false
+            scope.find(params[:id])
           end
 
           def collection_finder
